@@ -27,18 +27,23 @@ export class Battleship{
 //Able to place ships at an x,y coord calling 
 //the Battleship factory.
 //maybe an array holding every ship?
+//orientation = 'horizontal' or 'vertical
 export class Gameboard{
     constructor(){
         this.fullBoard = [];
     }
 
-    placeShip(length,x,y){
-        let ship = new Battleship (null,length,x,y,'horizontal');
+    placeShip(length,x,y,orientation){
+        let ship = new Battleship (null,length,x,y,orientation);
         this.fullBoard.push(ship);
         return ship
     }
     receiveAttack(x,y){
         //receives the hit coordinates
+        //para cada ship em fullBoard
+
+        // se x entre ship.x
+        
         //sends the hit function to the correct ship
         // or
         // records the coordinates of a missed shot
@@ -71,7 +76,7 @@ export class Gameboard{
 
 //let newShip = new Gameboard(10,15);
 let boardPlayerA = new Gameboard;
-let ship1 = boardPlayerA.placeShip(5,10,15)
+let ship1 = boardPlayerA.placeShip(5,10,15,'horizontal')
 console.log(ship1);
 
 // let ship = new Battleship('ship_1',10);
@@ -85,6 +90,8 @@ console.log(ship1);
 //09:38 às 10:00.
 //08:55 às 09:48.
 //18:43 às 19:15.
+//09:13 às 09:18.
+//
 
 
 // =========== ONDE PAREI ===============
