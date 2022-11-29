@@ -1,3 +1,5 @@
+// import { SingleEntryPlugin } from "webpack";
+
 console.log('index.js working');
 
 
@@ -32,26 +34,41 @@ export class Gameboard{
     constructor(){
         this.fullBoard = [];
     }
-
     placeShip(length,x,y,orientation){
         let ship = new Battleship (null,length,x,y,orientation);
         this.fullBoard.push(ship);
         return ship
     }
+    //receives the attack coordinates
     receiveAttack(x,y){
-        //receives the hit coordinates
-        //para cada ship em fullBoard
-
-        // se x entre ship.x
-        
-        //sends the hit function to the correct ship
-        // or
-        // records the coordinates of a missed shot
+        console.log(`Attack received on, x:${x},y:${y}`);
+        for(let ship of this.fullBoard){
+            if(ship['orientation']=='horizontal'){
+                let startX = ship.x;
+                let endX = ship['length']+ship.x;
+                if(x>=startX && x<=endX){
+                    return ship.hit();
+                }else{
+                    return this.missedAttacks(x,y);
+                }
+            }else{
+                let startY = ship.y;
+                let endY = ship['length']+ship.y;
+                if(y>=startY && y<=endY){
+                    return ship.hit();
+                }else{
+                    return this.missedAttacks(x,y);
+                }
+            }          
+        }
     }
 
     //keeps tracks of missed attacks.
     missedAttacks(x,y){
-        let missCount = 0;
+        let missList=[];
+        missList.push({x,y});
+
+        return missList;
     }
 
     //if any ship in fullBoard has sunk=true, return false
@@ -59,7 +76,7 @@ export class Gameboard{
     // if not, it will return true after the loop.
     
     isEveryoneDead(){
-        for(let ship of fullBoard){
+        for(let ship of this.fullBoard){
             if (ship['sunk'] != true){
                 return false
             }
@@ -76,14 +93,11 @@ export class Gameboard{
 
 //let newShip = new Gameboard(10,15);
 let boardPlayerA = new Gameboard;
-let ship1 = boardPlayerA.placeShip(5,10,15,'horizontal')
+let ship1 = boardPlayerA.placeShip(5,10,15,'horizontal');
 console.log(ship1);
-
-// let ship = new Battleship('ship_1',10);
-// console.log(ship);
-// ship.hit()
-// ship.hit()
-// console.log(ship);
+let attack = boardPlayerA.receiveAttack(12,4);
+console.log(attack);
+console.log(ship1);
 
 
 //08:35 às 09:10.
@@ -91,16 +105,15 @@ console.log(ship1);
 //08:55 às 09:48.
 //18:43 às 19:15.
 //09:13 às 09:18.
-//
+//19:15 19:51.
 
 
 // =========== ONDE PAREI ===============
-//Gameboard:
-// falta receiveAttack e missedAttacks
+// começar: (ver instruções na página do odin)
+//3. Create Player
 
 
 
 // ---- later:
-//SHOULD BATTLESHIP BE A FUNCTION???
 //setup do testes, lembrar, tdd first.
-//jest não está funcionado.
+//jest não testa todas as funções de uma vez só.
