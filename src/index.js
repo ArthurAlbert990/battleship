@@ -86,6 +86,43 @@ export class Gameboard{
 
 }
 
+//
+// PAREI AQUI, DESENVOLVENDO PLAYER
+// type pode ser 'user' ou 'machine'
+//
+export class Player{
+    constructor(name,type){
+    this.name = name;
+    this.type = type;
+    this.playerBoard = null;
+    this.enemyBoard = null;
+    }
+
+    setPlayerEnemy(gameboard){
+        this.enemyBoard = gameboard;
+        console.log(`Enemy board set as: ${gameboard}`);
+        return;
+    }
+
+    attack(x=null,y=null){
+        if(this.type=='user'){
+            x = alert('Type your attack coordinate (x): ')
+            y = alert('Type your attack coordinate (y): ')
+            this.enemyBoard.receiveAttack(x,y);
+        }
+        else{
+            computerAttack();
+        }
+
+        return;
+    }
+}
+
+export function computerAttack(){
+    // em desenvolvimento, vez do pc, gerar coordenadas para ataque.
+}
+
+
 //module.exports=Battleship;
 //CODE THE TESTS FIRST !!!!:
 // CODE THE TESTS FIRST!!!!:
@@ -100,18 +137,17 @@ console.log(attack);
 console.log(ship1);
 
 
-//08:35 às 09:10.
-//09:38 às 10:00.
-//08:55 às 09:48.
-//18:43 às 19:15.
+//29/11
 //09:13 às 09:18.
-//19:15 19:51.
+//19:15 19:55.
+
+//03/12
+//10:50 às 11:10
 
 
 // =========== ONDE PAREI ===============
 // começar: (ver instruções na página do odin)
-//3. Create Player
-
+//3. Creating player functions
 
 
 // ---- later:
