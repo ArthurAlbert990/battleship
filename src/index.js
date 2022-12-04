@@ -16,6 +16,7 @@ export class Battleship{
 
     hit(){
         this.hits++;
+        console.log('HIT!');
         return this.hits;
     }
     isSunk(){
@@ -43,7 +44,7 @@ export class Gameboard{
     receiveAttack(x,y){
         console.log(`Attack received on, x:${x},y:${y}`);
         for(let ship of this.fullBoard){
-            if(ship['orientation']=='horizontal'){
+            if(ship['pos']=='horizontal'){
                 let startX = ship.x;
                 let endX = ship['length']+ship.x;
                 if(x>=startX && x<=endX){
@@ -67,6 +68,7 @@ export class Gameboard{
     missedAttacks(x,y){
         let missList=[];
         missList.push({x,y});
+        console.log('attack: MISS');
 
         return missList;
     }
@@ -98,16 +100,14 @@ export class Player{
     this.enemyBoard = null;
     }
 
-    setPlayerEnemy(gameboard){
+    setEnemyBoard(gameboard){
         this.enemyBoard = gameboard;
         console.log(`Enemy board set as: ${gameboard}`);
         return;
     }
 
-    attack(x=null,y=null){
+    attack(x=0,y=0){
         if(this.type=='user'){
-            x = alert('Type your attack coordinate (x): ')
-            y = alert('Type your attack coordinate (y): ')
             this.enemyBoard.receiveAttack(x,y);
         }
         else{
@@ -128,12 +128,12 @@ export function computerAttack(){
 // CODE THE TESTS FIRST!!!!:
 
 
-//let newShip = new Gameboard(10,15);
-let boardPlayerA = new Gameboard;
-let ship1 = boardPlayerA.placeShip(5,10,15,'horizontal');
-console.log(ship1);
-let attack = boardPlayerA.receiveAttack(12,4);
-console.log(attack);
+let playerA = new Player('Arthur','user');
+let playerB = new Player('PC','machine');
+let boardPlayerB = new Gameboard;
+playerA.setEnemyBoard(boardPlayerB)
+let ship1 = boardPlayerB.placeShip(5,10,15,'horizontal');
+playerA.attack(12,4)
 console.log(ship1);
 
 
@@ -143,12 +143,17 @@ console.log(ship1);
 
 //03/12
 //10:50 às 11:10
+//20:50 às 21:10
+
 
 
 // =========== ONDE PAREI ===============
 // começar: (ver instruções na página do odin)
 //3. Creating player functions
 
+// ========== OBSERVAÇÕES: ==============
+// Função de receiveAttack ainda não está completa
+// falta acabar lógica, adicionar suporte ao eixo Y.
 
 // ---- later:
 //setup do testes, lembrar, tdd first.
